@@ -26,7 +26,7 @@ IF(CMAKE_BUILD_TYPE MATCHES Debug)
     # Download and install GoogleTest
     ExternalProject_Add(
       gtest
-      URL https://github.com/google/googletest/archive/master.zip
+      URL https://github.com/google/googletest/archive/release-1.8.1.zip
       PREFIX ${CMAKE_CURRENT_BINARY_DIR}/gtest
       # Disable install step
       INSTALL_COMMAND ""
