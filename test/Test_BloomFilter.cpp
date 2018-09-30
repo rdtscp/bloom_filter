@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 #include "gtest/gtest.h"
 
@@ -8,11 +9,48 @@
 
 using namespace ads;
 
+TEST(BloomFilterTest, NormalConstruction) {
+	bloom_filter bf(100, 0.01);
+
+	ASSERT_TRUE(true);
+}
+
+TEST(BloomFilterTest, FilterLength) {
+	bloom_filter bf(125000, 0.01);
+	ASSERT_EQ(bf.dump().length(), 1198133);
+}
+
+TEST(BloomFilterTest, InitialisedToZeros) {
+	bloom_filter bf(2, 0.091848839);
+	ASSERT_EQ("0000000000", bf.dump());
+}
+
+TEST(BloomFilterTest, TestInsert) {
+	bloom_filter bf(125000, 0.01);
+	std::string bitsBefore = bf.dump();
+	bf.insert("test");
+	std::string bitsAfter  = bf.dump();
+
+	ASSERT_NE(bitsBefore, bitsAfter);
+}
+
+TEST(BloomFilterTest, NumberHashes) {
+	bloom_filter bf(125000, 0.01);
+
+	std::string bits = bf.dump();
+	ASSERT_EQ(std::count(bits.begin(), bits.end(), '1'), 0);
+
+	bf.insert("test");
+
+	bits = bf.dump();
+	ASSERT_EQ(std::count(bits.begin(), bits.end(), '1'), 7);
+}
+
 // The fixture for testing class Project1. From google test primer.
-class Test_BinTree : public ::testing::Test {
+class Test_BloomFilter : public ::testing::Test {
 	protected:
 
-		Test_BinTree() {
+		Test_BloomFilter() {
 			// You can do set-up work for each test here.
 		}
 
