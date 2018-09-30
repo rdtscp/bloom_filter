@@ -6,6 +6,7 @@ include_directories("${source_dir}/googletest/include")
 ADD_EXECUTABLE(runBloomFilterUnitTests Test_BloomFilter.cpp main.cpp)
 
 TARGET_LINK_LIBRARIES(runBloomFilterUnitTests
+    bloom_filter
     libgtest
     libgmock
 )
