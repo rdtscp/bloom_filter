@@ -11,10 +11,10 @@ namespace ads {
     public:
 
       /* Construct a bloom filter with correct number of hashes for a false positive rate. */
-      bloom_filter(int num_entries, double false_postitive_rate);
+      bloom_filter(int num_entries, double false_positive_rate);
 
       /* Construct a bloom filter of set size, and some initialising entries. */
-      bloom_filter(int num_entries, double false_postitive_rate, std::vector<std::string> entries);
+      bloom_filter(int num_entries, double false_postitive_rate, const std::vector<std::string>& entries);
 
       /* Initialiser-List Constructor */
       bloom_filter(int num_entries, double false_postitive_rate, const std::initializer_list<std::string>& entries);
@@ -28,10 +28,16 @@ namespace ads {
       /* Clears all Elements of the Binary Tree */
       void clear();
 
+      /* Returns a String Representation of the Bloom Filter. */
+      std::string dump();
+
     private:
 
-      std::vector<bool> bits;
       int num_hashes;
+      std::vector<bool> bits;
+
+      int get_num_bits(int num_entries, double false_positive_rate);
+      int get_num_hashes(int num_entries, int num_bits);
 
   };
 
