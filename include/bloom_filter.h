@@ -11,13 +11,13 @@ namespace ads {
     public:
 
       /* Construct a bloom filter with correct number of hashes for a false positive rate. */
-      bloom_filter(int num_entries, double false_positive_rate);
+      bloom_filter(const int num_entries, const double false_positive_rate);
 
       /* Construct a bloom filter of set size, and some initialising entries. */
-      bloom_filter(int num_entries, double false_postitive_rate, const std::vector<std::string>& entries);
+      bloom_filter(const int num_entries, const double false_positive_rate, const std::vector<std::string>& entries);
 
       /* Initialiser-List Constructor */
-      bloom_filter(int num_entries, double false_postitive_rate, const std::initializer_list<std::string>& entries);
+      bloom_filter(const int num_entries, const double false_positive_rate, const std::initializer_list<std::string>& entries);
 
       /* Insert an Element. */
       void insert(const std::string& entry);
@@ -36,8 +36,9 @@ namespace ads {
       int num_hashes;
       std::vector<bool> bits;
 
-      int get_num_bits(int num_entries, double false_positive_rate);
-      int get_num_hashes(int num_entries, int num_bits);
+      void validate_args(const int num_entries, const double false_positive_rate);
+      int get_num_bits(const int num_entries, const double false_positive_rate);
+      int get_num_hashes(const int num_entries, const int num_bits);
 
   };
 

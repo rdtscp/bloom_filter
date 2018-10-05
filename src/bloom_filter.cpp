@@ -1,23 +1,25 @@
-#include <set>
-#include <cmath>
+#include <stdexcept>
 #include <vector>
 #include <string>
 #include <memory>
+#include <cmath>
 
 #include "../include/bloom_filter.h"
 
 using namespace ads;
 
-bloom_filter::bloom_filter(int num_entries, double false_postitive_rate) {
-  int num_bits  = bloom_filter::get_num_bits(num_entries, false_postitive_rate);
-  num_hashes    = bloom_filter::get_num_hashes(num_entries, num_bits);
+bloom_filter::bloom_filter(const int num_entries, const double false_positive_rate) {
+  validate_args(num_entries, false_positive_rate);
+  const int num_bits  = bloom_filter::get_num_bits(num_entries, false_positive_rate);
+  num_hashes          = bloom_filter::get_num_hashes(num_entries, num_bits);
 
   bits.resize(num_bits, 0);
 }
 
-bloom_filter::bloom_filter(int num_entries, double false_postitive_rate, const std::vector<std::string>& entries) {
-  int num_bits      = bloom_filter::get_num_bits(num_entries, false_postitive_rate);
-  num_hashes  = bloom_filter::get_num_hashes(num_entries, num_bits);
+bloom_filter::bloom_filter(const int num_entries, const double false_positive_rate, const std::vector<std::string>& entries) {
+  validate_args(num_entries, false_positive_rate);
+  const int num_bits  = bloom_filter::get_num_bits(num_entries, false_positive_rate);
+  num_hashes          = bloom_filter::get_num_hashes(num_entries, num_bits);
   
   bits.resize(num_bits, 0);
 
@@ -25,9 +27,10 @@ bloom_filter::bloom_filter(int num_entries, double false_postitive_rate, const s
     insert(entry);
 }
 
-bloom_filter::bloom_filter(int num_entries, double false_postitive_rate, const std::initializer_list<std::string>& entries) {
-  int num_bits      = bloom_filter::get_num_bits(num_entries, false_postitive_rate);
-  num_hashes  = bloom_filter::get_num_hashes(num_entries, num_bits);
+bloom_filter::bloom_filter(const int num_entries, const double false_positive_rate, const std::initializer_list<std::string>& entries) {
+  validate_args(num_entries, false_positive_rate);
+  const int num_bits  = bloom_filter::get_num_bits(num_entries, false_positive_rate);
+  num_hashes          = bloom_filter::get_num_hashes(num_entries, num_bits);
   
   bits.resize(num_bits, 0);
 
@@ -75,12 +78,19 @@ std::string bloom_filter::dump() {
   return output;
 }
 
-/* (-num_entries * log_2(false_postitive_rate)) / ln2 */
-int bloom_filter::get_num_bits(int num_entries, double false_positive_rate) {
+void bloom_filter::validate_args(const int num_entries, const double false_positive_rate) {
+  if (false_positive_rate <= 0 || false_positive_rate >= 1)
+    throw std::invalid_argument( "bloom_filter must have a false_posive rate between 0 and 1 exclusive." );
+  if (num_entries <= 0)
+    throw std::invalid_argument( "bloom_filter must have take a positive number of entries" );
+}
+
+/* (-num_entries * log_2(false_positive_rate)) / ln2 */
+int bloom_filter::get_num_bits(const int num_entries, const double false_positive_rate) {
   return std::ceil((-1 * num_entries * std::log2(false_positive_rate)) / std::log(2));
 }
 
 /* ( num_bits / num_entries ) * ln2 */
-int bloom_filter::get_num_hashes(int num_entries, int num_bits) {
+int bloom_filter::get_num_hashes(const int num_entries, const int num_bits) {
   return std::ceil((num_bits / (double)num_entries) * std::log(2));
 }
