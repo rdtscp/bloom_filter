@@ -1,7 +1,8 @@
-#include <string>
-#include <vector>
+#include <stdexcept>
 #include <iostream>
 #include <algorithm>
+#include <string>
+#include <vector>
 
 #include "gtest/gtest.h"
 
@@ -44,6 +45,18 @@ TEST(BloomFilterTest, NumberHashes) {
 
 	bits = bf.dump();
 	ASSERT_EQ(std::count(bits.begin(), bits.end(), '1'), 7);
+}
+
+TEST(BloomFilterTest, InvalidArguments) {
+	EXPECT_NO_THROW(
+		bloom_filter bf(1, 0.5);
+	);
+	ASSERT_THROW(bloom_filter bf(100, 1.0), std::invalid_argument);
+	ASSERT_THROW(bloom_filter bf(100, 0.0), std::invalid_argument);
+	ASSERT_THROW(bloom_filter bf(100, 9.9), std::invalid_argument);
+	ASSERT_THROW(bloom_filter bf(100, 9.9), std::invalid_argument);
+	ASSERT_THROW(bloom_filter bf(0, 0.5), std::invalid_argument);
+	ASSERT_THROW(bloom_filter bf(-1, 0.5), std::invalid_argument);
 }
 
 // The fixture for testing class Project1. From google test primer.
