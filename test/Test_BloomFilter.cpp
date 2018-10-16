@@ -59,6 +59,26 @@ TEST(BloomFilterTest, InvalidArguments) {
 	ASSERT_THROW(bloom_filter bf(-1, 0.5), std::invalid_argument);
 }
 
+TEST(BloomFilterTest, TestFind) {
+	bloom_filter bf(125000, 0.01);
+	ASSERT_FALSE(bf.find("invalid entry"));
+	bf.insert("invalid entry");
+	ASSERT_TRUE(bf.find("invalid entry"));
+}
+
+TEST(BloomFilterTest, ExtendedInserts) {
+	bloom_filter bf(125000, 0.01);
+	std::vector<std::string> entries = {
+		"foo", "bar", "baz", "car", "char", "chair", "chars",
+		"cat", "cats", "c++", "   ", "123", "1", "___", "abc",
+		"a very long line that consitutes a single entry that may or may not cause issues", "",
+		"\"", "¬"
+	};
+	for (std::string entry: entries) {
+		bf.insert(entry);
+		ASSERT_TRUE(bf.find(entry));
+	}
+}
 // The fixture for testing class Project1. From google test primer.
 class Test_BloomFilter : public ::testing::Test {
 	protected:
