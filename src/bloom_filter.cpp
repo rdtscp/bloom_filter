@@ -41,10 +41,7 @@ bloom_filter::bloom_filter(const int num_entries, const double false_positive_ra
 void bloom_filter::insert(const std::string& entry) {
   for (int hash_number = 0; hash_number < num_hashes; hash_number++) {
 
-    unsigned long bits_idx = std::hash<std::string>{}(entry + std::to_string(hash_number));
-
-    if (bits_idx < 0)
-      bits_idx *= -1;
+    unsigned long bits_idx = (unsigned long)std::hash<std::string>{}(entry + std::to_string(hash_number));
 
     bits_idx = bits_idx % (bits.capacity() - 1);
 
