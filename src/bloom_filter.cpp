@@ -47,6 +47,7 @@ bloom_filter& bloom_filter::operator=(const bloom_filter& rhs) {
   if (&rhs == this) {
     return *this;
   }
+
   num_hashes = rhs.num_hashes;
   bits       = rhs.bits;
   return *this;
