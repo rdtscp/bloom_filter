@@ -49,7 +49,7 @@ void bloom_filter::insert(const std::string& entry) {
   }
 }
 
-bool bloom_filter::find(const std::string& entry) {
+bool bloom_filter::find(const std::string& entry) const {
   int output = true;
   for (int hash_number = 0; hash_number < num_hashes; hash_number++) {
     unsigned long bits_idx = std::hash<std::string>{}(entry + std::to_string(hash_number));
@@ -68,14 +68,14 @@ void bloom_filter::clear() {
   std::fill(bits.begin(), bits.end(), false);
 }
 
-std::string bloom_filter::dump() {
+std::string bloom_filter::dump() const {
   std::string output = "";
   for(int i = 0; i < bits.size(); i++)
     (bits[i]) ? output += "1" : output += "0";
   return output;
 }
 
-void bloom_filter::validate_args(const int num_entries, const double false_positive_rate) {
+void bloom_filter::validate_args(const int num_entries, const double false_positive_rate) const {
   if (false_positive_rate <= 0 || false_positive_rate >= 1)
     throw std::invalid_argument( "bloom_filter must have a false_posive rate between 0 and 1 exclusive." );
   if (num_entries <= 0)
@@ -83,11 +83,11 @@ void bloom_filter::validate_args(const int num_entries, const double false_posit
 }
 
 /* (-num_entries * log_2(false_positive_rate)) / ln2 */
-int bloom_filter::get_num_bits(const int num_entries, const double false_positive_rate) {
+int bloom_filter::get_num_bits(const int num_entries, const double false_positive_rate) const {
   return std::ceil((-1 * num_entries * std::log2(false_positive_rate)) / std::log(2));
 }
 
 /* ( num_bits / num_entries ) * ln2 */
-int bloom_filter::get_num_hashes(const int num_entries, const int num_bits) {
+int bloom_filter::get_num_hashes(const int num_entries, const int num_bits) const {
   return std::ceil((num_bits / (double)num_entries) * std::log(2));
 }

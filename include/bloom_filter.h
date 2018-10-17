@@ -23,22 +23,22 @@ namespace ads {
       void insert(const std::string& entry);
 
       /* Returns if an Element Exists in the Tree */
-      bool find(const std::string& entry);
+      bool find(const std::string& entry) const;
 
       /* Clears all Elements of the Binary Tree */
       void clear();
 
       /* Returns a String Representation of the Bloom Filter. */
-      std::string dump();
+      std::string dump() const;
 
     private:
 
       int num_hashes;
       std::vector<bool> bits;
 
-      void validate_args(const int num_entries, const double false_positive_rate);
-      int get_num_bits(const int num_entries, const double false_positive_rate);
-      int get_num_hashes(const int num_entries, const int num_bits);
+      void validate_args(const int num_entries, const double false_positive_rate) const;
+      int get_num_bits(const int num_entries, const double false_positive_rate) const;
+      int get_num_hashes(const int num_entries, const int num_bits) const;
 
   };
 
