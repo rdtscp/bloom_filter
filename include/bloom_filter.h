@@ -19,6 +19,12 @@ namespace ads {
       /* Initialiser-List Constructor */
       bloom_filter(const int num_entries, const double false_positive_rate, const std::initializer_list<std::string>& entries);
 
+      /* Copy Constructor */
+      bloom_filter(const bloom_filter& copy);
+
+      /* Assignment Operator */
+      bloom_filter& operator=(const bloom_filter& rhs);
+
       /* Insert an Element. */
       void insert(const std::string& entry);
 
