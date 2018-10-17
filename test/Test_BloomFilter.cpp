@@ -27,7 +27,7 @@ TEST(BloomFilterTest, InitialisedToZeros) {
 }
 
 TEST(BloomFilterTest, CopyConstructor) {
-	bloom_filter bf(2, 0.091848839);
+	bloom_filter bf(125000, 0.01);
 
 	bf.insert("entry");
 
@@ -40,7 +40,7 @@ TEST(BloomFilterTest, CopyConstructor) {
 }
 
 TEST(BloomFilterTest, AssignmentCopy) {
-	bloom_filter bf(2, 0.091848839);
+	bloom_filter bf(125000, 0.01);
 
 	bf.insert("entry");
 
