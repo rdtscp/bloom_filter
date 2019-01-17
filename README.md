@@ -1,5 +1,5 @@
 # Bloom Filter
-[![Build Status](https://travis-ci.com/acwilson96/bloom_filter.svg?branch=master)](https://travis-ci.com/acwilson96/bloom_filter)
+[![Build Status](https://travis-ci.com/rdtscp/bloom_filter.svg?branch=master)](https://travis-ci.com/rdtscp/bloom_filter)
 ![License](https://img.shields.io/badge/License-MIT-brightgreen.svg)
 
 Bloom Filter implementation in C++. Built using CMake and Google Test. 
