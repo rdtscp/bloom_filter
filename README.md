@@ -1,5 +1,6 @@
 # Bloom Filter
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/be1e64782da1444396fbb6e8302caf28)](https://app.codacy.com/app/rdtscp/bloom_filter?utm_source=github.com&utm_medium=referral&utm_content=rdtscp/bloom_filter&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.com/rdtscp/bloom_filter.svg?branch=master)](https://travis-ci.com/rdtscp/bloom_filter)
 ![License](https://img.shields.io/badge/License-MIT-brightgreen.svg)
 
