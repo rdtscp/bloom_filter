@@ -47,10 +47,7 @@ bloom_filter::bloom_filter(const int num_entries,
 }
 
 bloom_filter::bloom_filter(const bloom_filter &copy)
-    : num_hashes(copy.num_hashes), bits(copy.bits) {
-  num_hashes = copy.num_hashes;
-  bits = copy.bits;
-}
+    : num_hashes(copy.num_hashes), bits(copy.bits) {}
 
 bloom_filter &bloom_filter::operator=(const bloom_filter &rhs) {
   if (&rhs == this) {
