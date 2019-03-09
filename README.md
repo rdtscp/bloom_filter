@@ -5,14 +5,14 @@
 
 Bloom Filter implementation in C++. Built using CMake and Google Test. 
 
-# Download
+## Download
 
     git clone https://github.com/acwilson96/bloom_filter
     cd bloom_filter
 
 The following should be run from within the "bloom_filter" directory.
 
-# Release Install
+## Release Install
 
     mkdir build
     cd build
@@ -21,7 +21,7 @@ The following should be run from within the "bloom_filter" directory.
     make install
     cd ..
 
-# Debug Install & Run Unit Tests
+## Debug Install & Run Unit Tests
 
     mkdir build
     cd build
@@ -31,7 +31,7 @@ The following should be run from within the "bloom_filter" directory.
     ctest -V
     cd ..
 
-# Uninstall
+## Uninstall
 
     cd build
     xargs rm < install_manifest.txt
