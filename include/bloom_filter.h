@@ -28,26 +28,26 @@ public:
   bloom_filter &operator=(const bloom_filter &rhs);
 
   /* Insert an Element. */
-  void insert(const std::string &entry);
+  auto insert(const std::string &entry) -> void;
 
   /* Returns if an Element Exists in the Tree */
-  bool find(const std::string &entry) const;
+  auto find(const std::string &entry) const -> bool;
 
   /* Clears all Elements of the Binary Tree */
-  void clear();
+  auto clear() -> void;
 
   /* Returns a String Representation of the Bloom Filter. */
-  std::string dump() const;
+  auto dump() const -> std::string;
 
 private:
   int num_hashes;
   std::vector<bool> bits;
 
-  void validate_args(const int num_entries,
-                     const double false_positive_rate) const;
-  int get_num_bits(const int num_entries,
-                   const double false_positive_rate) const;
-  int get_num_hashes(const int num_entries, const int num_bits) const;
+  auto validate_args(const int num_entries,
+                     const double false_positive_rate) const -> void;
+  auto get_num_bits(const int num_entries,
+                   const double false_positive_rate) const -> int;
+  auto get_num_hashes(const int num_entries, const int num_bits) const -> int;
 };
 
 } // namespace ads
